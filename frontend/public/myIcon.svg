@@ -1,0 +1,12 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="58" fill="#D8BFAA" stroke="#D8BFAA" stroke-width="4"/>
+
+  <!-- Paper plane (scaled ~60% bigger than original) -->
+  <path d="M22 55 L98 55 L22 28 L65 55 Z" fill="#FFFFFF"/>
+
+  <!-- Budget bars (scaled ~60% bigger than original, centered) -->
+  <rect x="48" y="64" width="8" height="22" fill="#FFFFFF"/>
+  <rect x="59" y="60" width="8" height="26" fill="#FFFFFF"/>
+  <rect x="70" y="66" width="8" height="20" fill="#FFFFFF"/>
+</svg>
