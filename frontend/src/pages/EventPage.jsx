@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEvents } from "../providers/EventProvider";
 import DayCard from "../components/DayCard";
 
@@ -13,18 +13,53 @@ export default function EventPage() {
   const [title, setTitle] = useState(event.title);
   const [description, setDescription] = useState(event.description);
   const [location, setLocation] = useState(event.location);
-  const [numDays, setNumDays] = useState(event.numDays || 0);
   const [budgetLimit, setBudgetLimit] = useState(event.budgetLimit || 0);
   const [days, setDays] = useState(event.days || []);
+  const [imagePath, setImagePath] = useState(
+    event.imagePath || "/backgrounds/myIcon.png"
+  );
 
-  // 🔄 Keep days array in sync with numDays
+  const [tempNumDays, setTempNumDays] = useState(days.length);
+  const [tempBudget, setTempBudget] = useState(budgetLimit);
+
+  const applyNumDaysChange = () => {
+    let value = parseInt(tempNumDays);
+    if (isNaN(value)) value = 0;
+    if (value > 39) value = 39;
+    if (value < 0) value = 0;
+
+    if (value > days.length) {
+      // add missing days
+      const newDays = [...days];
+      for (let i = days.length; i < value; i++) {
+        newDays.push({ id: i + 1, title: `Day ${i + 1}` });
+      }
+      setDays(newDays);
+    } else if (value < days.length) {
+      // trim extra days
+      setDays(days.slice(0, value));
+    }
+
+    setTempNumDays(value); // sync back with actual length
+  };
+
+  const applyBudgetChange = () => {
+    let value = parseFloat(tempBudget);
+    if (isNaN(value)) value = 0;
+    if (value > 100000) value = 100000; // enforce max
+    if (value < 0) value = 0; // enforce min
+
+    setBudgetLimit(value);
+    setTempBudget(value); // sync field back to cleaned number
+  };
+
   useEffect(() => {
-    const updatedDays = Array.from({ length: numDays }, (_, i) => ({
+    const updatedDays = Array.from({ length: days.length }, (_, i) => ({
       id: i + 1,
       title: days[i]?.title || `Day ${i + 1}`,
     }));
     setDays(updatedDays);
-  }, [numDays]);
+  }, [days.length]);
 
   // ➕ Add day manually
   const addDay = () => {
@@ -33,7 +68,6 @@ export default function EventPage() {
     if (!dayTitle) return;
     const newDay = { id: newDayNumber, title: dayTitle };
     setDays([...days, newDay]);
-    setNumDays(days.length + 1); // keep sync
   };
 
   // 💾 Save changes back to context
@@ -42,11 +76,11 @@ export default function EventPage() {
       title,
       description,
       location,
-      numDays,
       budgetLimit,
       days,
+      imagePath,
     });
-  }, [title, description, location, numDays, budgetLimit, days]);
+  }, [title, description, location, budgetLimit, days, imagePath]);
 
   return (
     <div className="space-y-8 px-4 md:px-0">
@@ -55,7 +89,9 @@ export default function EventPage() {
         <div
           className="relative w-11/12 md:w-4/5 lg:w-3/5 h-96 rounded-xl shadow-lg overflow-hidden"
           style={{
-            backgroundImage: `url('/backgrounds/lisbon.jpg')`,
+            backgroundImage: event.imagePath
+              ? `url('${event.imagePath}')`
+              : `url('/backgrounds/myIcon.png')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -90,51 +126,41 @@ export default function EventPage() {
               />
             </div>
 
-            <div className="flex justify-center gap-6 mt-4">
+            <div className="flex justify-center items-center gap-8 mt-4">
+              {/* Days */}
               <div className="flex flex-col items-center">
-                <label className="text-white text-sm mb-1">
-                  Number of days:
-                </label>
+                <label className="text-white text-sm mb-1">Days</label>
                 <input
                   type="number"
-                  value={numDays}
+                  value={tempNumDays}
                   onChange={(e) => {
-                    const value = e.target.value;
-                    // Allow empty input while typing
-                    if (value === "") {
-                      setNumDays("");
-                    } else {
-                      setNumDays(parseInt(value));
+                    setTempNumDays(e.target.value); // allow typing
+                  }}
+                  onBlur={applyNumDaysChange} // <-- reuse same function
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      applyNumDaysChange(); // trigger update on Enter
                     }
                   }}
-                  onBlur={() => {
-                    // If empty, reset to 0
-                    if (numDays === "") setNumDays(0);
-                  }}
-                  className="text-white text-center w-24 bg-transparent border-none focus:outline-none focus:ring-0"
+                  className="text-white text-center w-auto bg-transparent border-none focus:outline-none focus:ring-0"
                   placeholder="Days"
                 />
               </div>
+
+              {/* Budget */}
               <div className="flex flex-col items-center">
-                <label className="text-white text-sm mb-1">
-                  Budget limit (€):
-                </label>
+                <label className="text-white text-sm mb-1">Budget (€)</label>
                 <input
                   type="number"
-                  value={budgetLimit}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    if (value === "") {
-                      setBudgetLimit(""); // allow empty input while typing
-                    } else {
-                      setBudgetLimit(parseFloat(value)); // parse as float for decimals
+                  value={tempBudget}
+                  onChange={(e) => setTempBudget(e.target.value)} // allow typing freely
+                  onBlur={applyBudgetChange} // apply on blur
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      applyBudgetChange(); // also apply on Enter
                     }
                   }}
-                  onBlur={() => {
-                    // If empty, reset to 0
-                    if (budgetLimit === "") setBudgetLimit(0);
-                  }}
-                  className="text-white text-center w-32 bg-transparent border-none focus:outline-none focus:ring-0"
+                  className="text-white text-center w-auto bg-transparent border-none focus:outline-none focus:ring-0"
                   placeholder="Budget"
                 />
               </div>
@@ -147,7 +173,9 @@ export default function EventPage() {
       <div className="flex justify-center">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full md:w-4/5 lg:w-3/5">
           {days.map((day) => (
-            <DayCard key={day.id} day={day} />
+            <Link key={day.id} to={`/day/${day.id}`}>
+              <DayCard day={day} />
+            </Link>
           ))}
 
           {/* ➕ '+' card */}

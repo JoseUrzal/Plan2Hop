@@ -9,9 +9,22 @@ export function EventProvider({ children }) {
       title: "Trip to Lisbon",
       description: "Weekend trip",
       location: "Lisbon, Portugal",
-      numDays: null,
       budgetLimit: 1200,
-      days: [],
+      days: [
+        {
+          id: 1,
+          title: "Day 1",
+          activities: [
+            { id: 1, title: "Flight to Lisbon" },
+            { id: 2, title: "Lunch at TimeOut Market" },
+          ],
+        },
+        {
+          id: 2,
+          title: "Day 2",
+          activities: [{ id: 1, title: "Visit Belém Tower" }],
+        },
+      ],
       imagePath: "/backgrounds/lisbon.jpg",
     },
     {
@@ -19,9 +32,17 @@ export function EventProvider({ children }) {
       title: "Wedding Party",
       description: "Best friend's wedding",
       location: "Coimbra, Portugal",
-      numDays: 0,
       budgetLimit: 3000,
-      days: [],
+      days: [
+        {
+          id: 1,
+          title: "Day 1",
+          activities: [
+            { id: 1, title: "beer with friends" },
+            { id: 2, title: "party" },
+          ],
+        },
+      ],
       imagePath: "/backgrounds/wedding.jpg",
     },
   ]);
@@ -34,8 +55,23 @@ export function EventProvider({ children }) {
     );
   };
 
+  // ✅ Add new event
+  const addEvent = () => {
+    const newEvent = {
+      id: events.length + 1,
+      title: "New Event",
+      description: "",
+      location: "",
+      budgetLimit: 0,
+      days: [],
+      imagePath: "/backgrounds/myIcon.png",
+    };
+    setEvents([...events, newEvent]);
+    return newEvent; // important for navigation
+  };
+
   return (
-    <EventContext.Provider value={{ events, updateEvent }}>
+    <EventContext.Provider value={{ events, updateEvent, addEvent }}>
       {children}
     </EventContext.Provider>
   );
