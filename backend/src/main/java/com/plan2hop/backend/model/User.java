@@ -23,6 +23,13 @@ public class User {
     private String email;
     private String password; // TODO: hash before storing
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    // Events created by
+    @OneToMany(mappedBy = "masterUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Event> createdEvents = new ArrayList<>();
+
+    // All events
+    @ManyToMany(mappedBy = "participants")
     private List<Event> events = new ArrayList<>();
+
+
 }

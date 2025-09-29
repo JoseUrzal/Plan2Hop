@@ -2,8 +2,10 @@ package com.plan2hop.backend.controller;
 
 import com.plan2hop.backend.model.Event;
 import com.plan2hop.backend.model.Day;
+import com.plan2hop.backend.model.User;
 import com.plan2hop.backend.repository.EventRepository;
 import com.plan2hop.backend.repository.DayRepository;
+import com.plan2hop.backend.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,23 +16,29 @@ public class EventController {
 
     private final EventRepository eventRepository;
     private final DayRepository dayRepository;
+    private final UserRepository userRepository;
 
-    public EventController(EventRepository eventRepository, DayRepository dayRepository) {
+    public EventController(EventRepository eventRepository, DayRepository dayRepository, UserRepository userRepository) {
         this.eventRepository = eventRepository;
         this.dayRepository = dayRepository;
+        this.userRepository = userRepository;
     }
 
     // CREATE
     @PostMapping
-    public Event createEvent(@RequestBody Event event) {
+    public Event createEvent(@RequestParam Long userId, @RequestBody Event event) {
+        User user = userRepository.findById(userId).orElseThrow();
+        event.getParticipants().add(user);
         return eventRepository.save(event);
     }
 
-    // READ ALL
-    @GetMapping
-    public List<Event> getAllEvents() {
-        return eventRepository.findAll();
+    // READ ALL FROM USER
+    @GetMapping("/my-events")
+    public List<Event> getMyEvents(@RequestParam Long userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        return user.getEvents();
     }
+
 
     // READ ONE
     @GetMapping("/{id}")

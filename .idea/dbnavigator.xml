@@ -31,10 +31,21 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="31c7ec53-8aee-41be-b1d2-3e00fb32880b" object-ref="schemas/plan2hop/tables/days" />
+      <object connection-id="31c7ec53-8aee-41be-b1d2-3e00fb32880b" object-ref="schemas/plan2hop/tables/event_user" />
+      <object connection-id="31c7ec53-8aee-41be-b1d2-3e00fb32880b" object-ref="schemas/plan2hop/tables/events" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="31c7ec53-8aee-41be-b1d2-3e00fb32880b" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="31c7ec53-8aee-41be-b1d2-3e00fb32880b" dataset="plan2hop.events" active-filter-id="4e9c7141-c6f4-4ec3-b1fb-a3eb2522a0e3">
+      <filter id="4e9c7141-c6f4-4ec3-b1fb-a3eb2522a0e3" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND" />
+    </filter-actions>
+    <filter-actions connection-id="31c7ec53-8aee-41be-b1d2-3e00fb32880b" dataset="plan2hop.days" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="31c7ec53-8aee-41be-b1d2-3e00fb32880b" dataset="plan2hop.event_user" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />

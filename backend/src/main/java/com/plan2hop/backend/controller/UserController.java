@@ -65,7 +65,7 @@ public class UserController {
     @PostMapping("/{userId}/events")
     public Event createEventForUser(@PathVariable Long userId, @RequestBody Event event) {
         User user = userRepository.findById(userId).orElseThrow();
-        event.setUser(user);
+        event.setMasterUser(user);
         return eventRepository.save(event);
     }
 }

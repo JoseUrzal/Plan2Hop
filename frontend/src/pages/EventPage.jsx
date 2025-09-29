@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useEvents } from "../providers/EventProvider";
 import DayCard from "../components/DayCard";
+import Header from "../components/Header";
 
 export default function EventPage() {
   const { eventId } = useParams();
@@ -83,86 +84,86 @@ export default function EventPage() {
   }, [title, description, location, budgetLimit, days, imagePath]);
 
   return (
-    <div className="space-y-8 px-4 md:px-0">
+    <div className="space-y-8 px-4 md:px-0 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 text-gray-100 min-h-screen">
+      <Header />
       {/* Top card */}
-      <div className="flex justify-center mt-8">
-        <div
-          className="relative w-11/12 md:w-4/5 lg:w-3/5 h-96 rounded-xl shadow-lg overflow-hidden"
-          style={{
-            backgroundImage: event.imagePath
-              ? `url('${event.imagePath}')`
-              : `url('/backgrounds/myIcon.png')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className="absolute inset-0 bg-black/25"></div>
+      <div className="flex justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full md:w-4/5 lg:w-3/5">
+          {/* LEFT: Image */}
+          <div
+            className="relative h-32 bg-white shadow-lg rounded-xl flex justify-center items-center overflow-hidden hover:shadow-2xl transition cursor-pointer"
+            style={{
+              backgroundImage: event.imagePath
+                ? `url('${event.imagePath}')`
+                : `url('/backgrounds/myIcon.png')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <div className="absolute inset-0 bg-black/25 rounded-xl"></div>
+          </div>
 
-          <div className="relative z-10 flex flex-col justify-between h-full p-6">
-            <div className="flex flex-col items-center space-y-3">
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="text-white font-bold text-3xl text-center w-auto bg-transparent border-none focus:outline-none focus:ring-0"
-                placeholder="Title"
-              />
-              <input
-                type="text"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="text-white text-sm text-center w-auto bg-transparent border-none focus:outline-none focus:ring-0"
-                placeholder="Description"
-              />
-            </div>
+          {/* MIDDLE: Title & Location */}
+          <div className="flex flex-col justify-center items-center h-32 transition p-4 space-y-2 w-full">
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="text-gray-500 font-bold text-2xl text-center w-full bg-transparent border-none focus:outline-none focus:ring-0"
+              placeholder="Title"
+            />
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="text-gray-700 text-center w-full bg-transparent border-none focus:outline-none focus:ring-0"
+              placeholder="Location"
+            />
+          </div>
 
-            <div className="flex justify-center mt-2">
-              <input
-                type="text"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                className="text-white text-sm text-center w-auto bg-transparent border-none focus:outline-none focus:ring-0"
-                placeholder="Location"
-              />
-            </div>
+          {/* RIGHT: Description + Days + Budget */}
+          <div className="flex flex-col justify-between h-32 p-4 w-full">
+            {/* Description textarea */}
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="text-gray-500 w-full flex-grow bg-transparent border-none focus:outline-none focus:ring-0 p-2 resize-none overflow-hidden"
+              placeholder="Description"
+            ></textarea>
 
-            <div className="flex justify-center items-center gap-8 mt-4">
+            {/* Days & Budget under Description */}
+            <div className="flex justify-center items-center gap-4 w-full mt-2">
               {/* Days */}
               <div className="flex flex-col items-center">
-                <label className="text-white text-sm mb-1">Days</label>
+                <label className="text-gray-700 mb-1 text-xs text-center">
+                  Days
+                </label>
                 <input
                   type="number"
                   value={tempNumDays}
-                  onChange={(e) => {
-                    setTempNumDays(e.target.value); // allow typing
-                  }}
-                  onBlur={applyNumDaysChange} // <-- reuse same function
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      applyNumDaysChange(); // trigger update on Enter
-                    }
-                  }}
-                  className="text-white text-center w-auto bg-transparent border-none focus:outline-none focus:ring-0"
-                  placeholder="Days"
+                  onChange={(e) => setTempNumDays(e.target.value)}
+                  onBlur={applyNumDaysChange}
+                  onKeyDown={(e) => e.key === "Enter" && applyNumDaysChange()}
+                  className="text-gray-500 text-center w-12 border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-indigo-300"
                 />
               </div>
 
               {/* Budget */}
               <div className="flex flex-col items-center">
-                <label className="text-white text-sm mb-1">Budget (€)</label>
-                <input
-                  type="number"
-                  value={tempBudget}
-                  onChange={(e) => setTempBudget(e.target.value)} // allow typing freely
-                  onBlur={applyBudgetChange} // apply on blur
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      applyBudgetChange(); // also apply on Enter
-                    }
-                  }}
-                  className="text-white text-center w-auto bg-transparent border-none focus:outline-none focus:ring-0"
-                  placeholder="Budget"
-                />
+                <label className="text-gray-700 mb-1 text-xs text-center">
+                  Budget
+                </label>
+                <div className="flex items-center">
+                  <input
+                    type="number"
+                    value={tempBudget}
+                    onChange={(e) => setTempBudget(e.target.value)}
+                    onBlur={applyBudgetChange}
+                    onKeyDown={(e) => e.key === "Enter" && applyBudgetChange()}
+                    className="text-gray-500 text-center w-16 bg-transparent border-none focus:outline-none focus:ring-0"
+                  />
+                  <span className="text-gray-500 ml-1">€</span>
+                </div>
               </div>
             </div>
           </div>

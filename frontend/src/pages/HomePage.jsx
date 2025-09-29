@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import EventCard from "../components/EventCard";
 import { useEvents } from "../providers/EventProvider";
+import Header from "../components/Header";
 
 export default function DashboardPage() {
   const { events, addEvent } = useEvents();
@@ -12,21 +13,8 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="p-8 flex flex-col items-center">
-      <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-8 flex items-center justify-center space-x-4">
-        {/* Small logo on the left */}
-        <img
-          src="/backgrounds/myIcon.png" // replace with your logo path in public folder
-          alt="Plan2Hop Logo"
-          className="h-12 w-12 object-cover rounded-full"
-        />
-
-        <span>Plan 2 Hop</span>
-      </h1>
-
-      {/* Accent line below */}
-      <span className="block h-1 w-24 bg-orange-500 rounded-full mb-8 mx-auto"></span>
-
+    <div className="p-8 flex flex-col items-center bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 text-gray-100 min-h-screen">
+      <Header />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
         {events.map((event) => (
           <Link key={event.id} to={`/event/${event.id}`}>

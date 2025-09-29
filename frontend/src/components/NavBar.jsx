@@ -2,20 +2,20 @@ import { Link } from "react-router-dom";
 
 export default function NavBar() {
   return (
-    <nav className="bg-white shadow-md px-8 py-4 flex justify-between items-center">
+    <nav className="bg-gray-900/90 backdrop-blur-md text-white shadow-lg px-8 py-4 flex justify-between items-center">
       {/* Logo / App Name as link */}
       <Link
         to="/"
-        className="text-2xl font-bold text-gray-800 tracking-wide hover:text-orange-500 transition-colors duration-200"
+        className="text-2xl font-bold text-indigo-300 hover:text-orange-400"
       >
-        Events
+        My Events
       </Link>
 
       {/* Login Link */}
       <div>
         <Link
           to="/login"
-          className="text-gray-700 font-medium px-4 py-1 rounded-lg hover:bg-orange-100 hover:text-orange-600 transition-all duration-200"
+          className="text-indigo-300 font-medium px-4 py-1 rounded-lg hover:text-orange-400 transition-all duration-200"
         >
           Login
         </Link>
