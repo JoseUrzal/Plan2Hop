@@ -23,25 +23,23 @@ export default function EventPage() {
   const [tempNumDays, setTempNumDays] = useState(days.length);
   const [tempBudget, setTempBudget] = useState(budgetLimit);
 
-  const applyNumDaysChange = () => {
-    let value = parseInt(tempNumDays);
+  const applyNumDaysChange = (val) => {
+    let value = parseInt(val);
     if (isNaN(value)) value = 0;
     if (value > 39) value = 39;
     if (value < 0) value = 0;
 
     if (value > days.length) {
-      // add missing days
       const newDays = [...days];
       for (let i = days.length; i < value; i++) {
         newDays.push({ id: i + 1, title: `Day ${i + 1}` });
       }
       setDays(newDays);
     } else if (value < days.length) {
-      // trim extra days
       setDays(days.slice(0, value));
     }
 
-    setTempNumDays(value); // sync back with actual length
+    setTempNumDays(value);
   };
 
   const applyBudgetChange = () => {
@@ -91,7 +89,7 @@ export default function EventPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full md:w-4/5 lg:w-3/5">
           {/* LEFT: Image */}
           <div
-            className="relative h-32 bg-white shadow-lg rounded-xl flex justify-center items-center overflow-hidden hover:shadow-2xl transition cursor-pointer"
+            className="relative h-32 bg-white shadow-lg rounded-xl flex justify-center items-center overflow-hidden hover:shadow-2xl transition"
             style={{
               backgroundImage: event.imagePath
                 ? `url('${event.imagePath}')`
@@ -116,7 +114,7 @@ export default function EventPage() {
               type="text"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="text-gray-700 text-center w-full bg-transparent border-none focus:outline-none focus:ring-0"
+              className="text-gray-500 text-center w-full bg-transparent border-none focus:outline-none focus:ring-0"
               placeholder="Location"
             />
           </div>
@@ -127,31 +125,32 @@ export default function EventPage() {
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="text-gray-500 w-full flex-grow bg-transparent border-none focus:outline-none focus:ring-0 p-2 resize-none overflow-hidden"
+              className="text-gray-500 w-full h-12 flex-grow bg-transparent border-none focus:outline-none focus:ring-0 p-2 resize-none overflow-hidden text-center"
               placeholder="Description"
             ></textarea>
 
             {/* Days & Budget under Description */}
             <div className="flex justify-center items-center gap-4 w-full mt-2">
               {/* Days */}
-              <div className="flex flex-col items-center">
-                <label className="text-gray-700 mb-1 text-xs text-center">
-                  Days
+              <div className="flex flex-col items-center w-20">
+                <label className="text-gray-400 text-1l text-center mb-1 w-full font-bold">
+                  DAYS
                 </label>
                 <input
                   type="number"
                   value={tempNumDays}
-                  onChange={(e) => setTempNumDays(e.target.value)}
-                  onBlur={applyNumDaysChange}
-                  onKeyDown={(e) => e.key === "Enter" && applyNumDaysChange()}
-                  className="text-gray-500 text-center w-12 border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-indigo-300"
+                  onChange={(e) => {
+                    setTempNumDays(parseInt(e.target.value));
+                    applyNumDaysChange(e.target.value); // immediate update
+                  }}
+                  className="text-gray-700 text-center w-full h-8ed focus:outline-none focus:ring-1 focus:ring-indigo-300"
                 />
               </div>
 
               {/* Budget */}
               <div className="flex flex-col items-center">
-                <label className="text-gray-700 mb-1 text-xs text-center">
-                  Budget
+                <label className="text-gray-400 mb-1 text-1l text-center font-bold">
+                  BUDGET
                 </label>
                 <div className="flex items-center">
                   <input

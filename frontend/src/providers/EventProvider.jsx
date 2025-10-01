@@ -1,77 +1,80 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const EventContext = createContext();
 
 export function EventProvider({ children }) {
-  const [events, setEvents] = useState([
-    {
-      id: 1,
-      title: "Trip to Lisbon",
-      description: "Weekend trip",
-      location: "Lisbon, Portugal",
-      budgetLimit: 1200,
-      days: [
-        {
-          id: 1,
-          title: "Day 1",
-          activities: [
-            { id: 1, title: "Flight to Lisbon" },
-            { id: 2, title: "Lunch at TimeOut Market" },
-          ],
-        },
-        {
-          id: 2,
-          title: "Day 2",
-          activities: [{ id: 1, title: "Visit Belém Tower" }],
-        },
-      ],
-      imagePath: "/backgrounds/lisbon.jpg",
-    },
-    {
-      id: 2,
-      title: "Wedding Party",
-      description: "Best friend's wedding",
-      location: "Coimbra, Portugal",
-      budgetLimit: 3000,
-      days: [
-        {
-          id: 1,
-          title: "Day 1",
-          activities: [
-            { id: 1, title: "beer with friends" },
-            { id: 2, title: "party" },
-          ],
-        },
-      ],
-      imagePath: "/backgrounds/wedding.jpg",
-    },
-  ]);
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const updateEvent = (id, updatedFields) => {
-    setEvents((prev) =>
-      prev.map((event) =>
-        event.id === id ? { ...event, ...updatedFields } : event
-      )
-    );
+  // ✅ Load events from backend when app starts
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const res = await fetch(
+          "http://localhost:8080/api/events/my-events?userId=1"
+        );
+        if (!res.ok) throw new Error("Failed to fetch events");
+        const data = await res.json();
+        console.log(data); // console
+        setEvents(data);
+      } catch (err) {
+        console.error("Error fetching events:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  // ✅ Update event (PUT)
+  const updateEvent = async (id, updatedFields) => {
+    try {
+      const res = await fetch(`/api/events/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedFields),
+      });
+      if (!res.ok) throw new Error("Failed to update event");
+      const updated = await res.json();
+
+      setEvents((prev) =>
+        prev.map((event) => (event.id === id ? updated : event))
+      );
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  // ✅ Add new event
-  const addEvent = () => {
-    const newEvent = {
-      id: events.length + 1,
-      title: "New Event",
-      description: "",
-      location: "",
-      budgetLimit: 0,
-      days: [],
-      imagePath: "/backgrounds/myIcon.png",
-    };
-    setEvents([...events, newEvent]);
-    return newEvent; // important for navigation
+  // ✅ Add new event (POST)
+  const addEvent = async () => {
+    try {
+      const newEvent = {
+        title: "New Event",
+        description: "",
+        location: "",
+        budgetLimit: 0,
+        days: [],
+        imagePath: "/backgrounds/myIcon.png",
+      };
+
+      const res = await fetch("/api/events", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newEvent),
+      });
+      if (!res.ok) throw new Error("Failed to add event");
+      const savedEvent = await res.json();
+
+      setEvents([...events, savedEvent]);
+      return savedEvent; // return so router can navigate
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
-    <EventContext.Provider value={{ events, updateEvent, addEvent }}>
+    <EventContext.Provider value={{ events, updateEvent, addEvent, loading }}>
       {children}
     </EventContext.Provider>
   );

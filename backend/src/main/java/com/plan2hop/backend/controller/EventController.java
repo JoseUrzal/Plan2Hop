@@ -35,8 +35,7 @@ public class EventController {
     // READ ALL FROM USER
     @GetMapping("/my-events")
     public List<Event> getMyEvents(@RequestParam Long userId) {
-        User user = userRepository.findById(userId).orElseThrow();
-        return user.getEvents();
+        return eventRepository.findByParticipants_Id(userId);
     }
 
 
