@@ -26,16 +26,17 @@ public class EventController {
 
     // CREATE
     @PostMapping
-    public Event createEvent(@RequestParam Long userId, @RequestBody Event event) {
-        User user = userRepository.findById(userId).orElseThrow();
-        event.getParticipants().add(user);
+    public Event createEvent(@RequestBody Event event) {
+        User user = userRepository.findById(event.getMasterUser().getId()).orElseThrow();
+        event.getParticipantIds().add(user.getId());
+        event.setMasterUser(user);
         return eventRepository.save(event);
     }
 
     // READ ALL FROM USER
     @GetMapping("/my-events")
     public List<Event> getMyEvents(@RequestParam Long userId) {
-        return eventRepository.findByParticipants_Id(userId);
+        return eventRepository.findByParticipantId(userId);
     }
 
 

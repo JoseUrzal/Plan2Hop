@@ -4,11 +4,11 @@ import { useEvents } from "../providers/EventProvider";
 import Header from "../components/Header";
 
 export default function DashboardPage() {
-  const { events, addEvent } = useEvents();
+  const { events, createEvent } = useEvents();
   const navigate = useNavigate();
 
-  const handleAddEvent = () => {
-    const newEvent = addEvent();
+  const handleAddEvent = async () => {
+    const newEvent = await createEvent();
     navigate(`/event/${newEvent.id}`);
   };
 

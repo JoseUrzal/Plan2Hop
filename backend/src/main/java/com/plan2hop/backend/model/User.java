@@ -26,10 +26,4 @@ public class User {
     // Events created by
     @OneToMany(mappedBy = "masterUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Event> createdEvents = new ArrayList<>();
-
-    // All events
-    @ManyToMany(mappedBy = "participants")
-    private List<Event> events = new ArrayList<>();
-
-
 }

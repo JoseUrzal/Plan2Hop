@@ -58,7 +58,7 @@ public class UserController {
     @GetMapping("/{userId}/events")
     public List<Event> getUserEvents(@PathVariable Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
-        return user.getEvents();
+        return eventRepository.findByParticipantId(user.getId());
     }
 
     // EXTRA: create event for a user

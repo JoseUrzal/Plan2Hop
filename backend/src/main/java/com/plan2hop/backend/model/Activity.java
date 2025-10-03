@@ -18,6 +18,12 @@ public class Activity {
 
     private String title;
 
+    public String description;
+
+    public String location;
+
+    public Double cost;
+
     @ManyToOne
     @JoinColumn(name = "day_id", nullable = false)
     private Day day;

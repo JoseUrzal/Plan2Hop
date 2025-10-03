@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "events")
@@ -23,18 +25,21 @@ public class Event {
     private String description;
     private String location;
     private Double budgetLimit;
+    private Double usedBudget;
+    private String imagePath;
 
     @ManyToOne
     @JoinColumn(name = "master_user_id", nullable = false)
     private User masterUser;
 
-    @ManyToMany
-    @JoinTable(
-            name = "event_user",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
+    @ElementCollection
+    @CollectionTable(
+            name = "event_participants",
+            joinColumns = @JoinColumn(name = "event_id")
     )
-    private List<User> participants = new ArrayList<>();
+    @Column(name = "user_id")
+    private Set<Long> participantIds = new HashSet<>();
+
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Day> days = new ArrayList<>();
