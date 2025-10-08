@@ -70,16 +70,17 @@ export default function EventPage() {
   };
 
   // 💾 Save changes back to context
-  useEffect(() => {
-    updateEvent(event.id, {
-      title,
-      description,
-      location,
-      budgetLimit,
-      days,
-      imagePath,
-    });
-  }, [title, description, location, budgetLimit, days, imagePath]);
+  // useEffect(() => {
+  //   updateEvent({
+  //     id: event.id,
+  //     title,
+  //     description,
+  //     location,
+  //     budgetLimit,
+  //     days,
+  //     imagePath,
+  //   });
+  // }, [title, description, location, budgetLimit, days, imagePath]);
 
   return (
     <div className="space-y-8 px-4 md:px-0 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 text-gray-100 min-h-screen">

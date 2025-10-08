@@ -1,5 +1,6 @@
 package com.plan2hop.backend.controller;
 
+import com.plan2hop.backend.dto.EventDTO;
 import com.plan2hop.backend.model.Event;
 import com.plan2hop.backend.model.Day;
 import com.plan2hop.backend.model.User;
@@ -26,10 +27,18 @@ public class EventController {
 
     // CREATE
     @PostMapping
-    public Event createEvent(@RequestBody Event event) {
-        User user = userRepository.findById(event.getMasterUser().getId()).orElseThrow();
-        event.getParticipantIds().add(user.getId());
-        event.setMasterUser(user);
+    public Event createEvent(@RequestBody EventDTO eventDTO) {
+        User user = userRepository.findById(eventDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
+
+        Event event = Event.builder()
+                .title(eventDTO.getTitle())
+                .description(eventDTO.getDescription())
+                .location(eventDTO.getLocation())
+                .budgetLimit(eventDTO.getBudgetLimit())
+                .imagePath(eventDTO.getImagePath())
+                .user(user)
+                .participantIds(eventDTO.getParticipantIds())
+                .build();
         return eventRepository.save(event);
     }
 
@@ -48,12 +57,13 @@ public class EventController {
 
     // UPDATE
     @PutMapping("/{id}")
-    public Event updateEvent(@PathVariable Long id, @RequestBody Event updatedEvent) {
-        Event event = eventRepository.findById(id).orElseThrow();
-        event.setTitle(updatedEvent.getTitle());
-        event.setDescription(updatedEvent.getDescription());
-        event.setLocation(updatedEvent.getLocation());
-        event.setBudgetLimit(updatedEvent.getBudgetLimit());
+    public Event updateEvent(@RequestBody EventDTO updatedEventDTO) {
+        Event event = eventRepository.findById(updatedEventDTO.getId()).orElseThrow(() -> new RuntimeException("Event not found"));
+        event.setTitle(updatedEventDTO.getTitle());
+        event.setDescription(updatedEventDTO.getDescription());
+        event.setLocation(updatedEventDTO.getLocation());
+        event.setBudgetLimit(updatedEventDTO.getBudgetLimit());
+        event.setImagePath(updatedEventDTO.getImagePath());
         return eventRepository.save(event);
     }
 

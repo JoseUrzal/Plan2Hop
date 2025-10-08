@@ -21,16 +21,20 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name="title")
     private String title;
+    @Column(name="description")
     private String description;
+    @Column(name="location")
     private String location;
+    @Column(name="budget_limit")
     private Double budgetLimit;
-    private Double usedBudget;
+    @Column(name="image_path")
     private String imagePath;
 
     @ManyToOne
     @JoinColumn(name = "master_user_id", nullable = false)
-    private User masterUser;
+    private User user;
 
     @ElementCollection
     @CollectionTable(

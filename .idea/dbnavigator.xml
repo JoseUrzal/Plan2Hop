@@ -31,7 +31,9 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="31c7ec53-8aee-41be-b1d2-3e00fb32880b" object-ref="schemas/plan2hop/tables/events" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="31c7ec53-8aee-41be-b1d2-3e00fb32880b" />

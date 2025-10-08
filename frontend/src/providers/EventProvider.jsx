@@ -17,13 +17,14 @@ export function EventProvider({ children }) {
 
     const fetchEvents = async () => {
       try {
+        console.log("fetching events");
         const res = await fetch(
           "http://localhost:8080/api/events/my-events?userId=1" // hardcoded user ID for now
         );
         if (!res.ok) throw new Error("Failed to fetch events");
         const data = await res.json();
         console.log(data);
-        console.log("oi"); // only fetched events
+
         setEvents(data); // replace old state, don’t append
       } catch (err) {
         console.error("Error fetching events:", err);
@@ -36,12 +37,14 @@ export function EventProvider({ children }) {
   }, []);
 
   // Update event (PUT)
-  const updateEvent = async (id, updatedFields) => {
+  const updateEvent = async (event) => {
     try {
-      const res = await fetch(`/api/events/${id}`, {
+      console.log("updating event: " + event.id);
+      console.log(event);
+      const res = await fetch(`/api/events/${event.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedFields),
+        body: JSON.stringify(event),
       });
       if (!res.ok) throw new Error("Failed to update event");
       const updated = await res.json();
@@ -57,14 +60,14 @@ export function EventProvider({ children }) {
   // Save new event (POST)
   const createEvent = async () => {
     try {
+      console.log("creating event");
       const event = {
         title: "New Event",
         description: "",
-        budgetLimit: 0,
         location: "",
-        days: [],
+        budgetLimit: 0,
         imagePath: "/backgrounds/myIcon.png",
-        masterUserId: 1, // assuming user ID 1 for now
+        userId: 1, // assuming user ID 1 for now
         participantIds: [1], // assuming user ID 1 for now
       };
       console.log(event);
