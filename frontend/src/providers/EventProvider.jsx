@@ -3,45 +3,34 @@ import { createContext, useContext, useState, useEffect, useRef } from "react";
 const EventContext = createContext();
 
 export function EventProvider({ children }) {
-  // State to hold events
   const [events, setEvents] = useState([]);
-  // Loading state
-  const [loading, setLoading] = useState(true);
-
   const didFetch = useRef(false); // to prevent double fetching in StrictMode
 
-  // Load events from backend when app starts
+  // --- --- LOAD EVENTS --- ---
   useEffect(() => {
     if (didFetch.current) return; // skip second run
     didFetch.current = true;
-
     const fetchEvents = async () => {
       try {
-        console.log("fetching events");
         const res = await fetch(
           "http://localhost:8080/api/events/my-events?userId=1" // hardcoded user ID for now
         );
         if (!res.ok) throw new Error("Failed to fetch events");
         const data = await res.json();
-        console.log(data);
-
         setEvents(data); // replace old state, don’t append
       } catch (err) {
         console.error("Error fetching events:", err);
-      } finally {
-        setLoading(false);
       }
     };
-
     fetchEvents();
   }, []);
 
-  // Update event (PUT)
+  // --- --- UPDATE EVENT --- ---
   const updateEvent = async (event) => {
     try {
       console.log("updating event: " + event.id);
       console.log(event);
-      const res = await fetch(`/api/events/${event.id}`, {
+      const res = await fetch(`http://localhost:8080/api/events/${event.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(event),
@@ -49,15 +38,37 @@ export function EventProvider({ children }) {
       if (!res.ok) throw new Error("Failed to update event");
       const updated = await res.json();
 
-      setEvents((prev) =>
-        prev.map((event) => (event.id === id ? updated : event))
-      );
+      setEvents((prev) => prev.map((e) => (e.id === event.id ? updated : e)));
+
+      console.log("event days: " + event.days[0].id);
+      if (event.days && event.days.length > 0) {
+        for (const day of event.days) {
+          console.log(
+            "trying to post: " +
+              "dayId: " +
+              day.id +
+              " , dayTitle: " +
+              day.title +
+              " , dayDate: " +
+              day.date +
+              " , eventId: " +
+              day.eventId
+          );
+          await fetch(`http://localhost:8080/api/days`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(day),
+          });
+        }
+      }
+
+      alert("Event and days saved successfully!");
     } catch (err) {
       console.error(err);
     }
   };
 
-  // Save new event (POST)
+  // --- --- CREATE EVENT --- ---
   const createEvent = async () => {
     try {
       console.log("creating event");
@@ -87,9 +98,7 @@ export function EventProvider({ children }) {
   };
 
   return (
-    <EventContext.Provider
-      value={{ events, updateEvent, createEvent, loading }}
-    >
+    <EventContext.Provider value={{ events, updateEvent, createEvent }}>
       {children}
     </EventContext.Provider>
   );
