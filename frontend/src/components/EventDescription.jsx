@@ -1,4 +1,4 @@
-import { useEvents } from "../providers/EventProvider";
+import { useEvents } from "../providers/EventsProvider";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 

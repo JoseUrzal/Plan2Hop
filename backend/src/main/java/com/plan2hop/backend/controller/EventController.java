@@ -44,8 +44,22 @@ public class EventController {
 
     // READ ALL FROM USER
     @GetMapping("/my-events")
-    public List<Event> getMyEvents(@RequestParam Long userId) {
-        return eventRepository.findByParticipantId(userId);
+    public List<EventDTO> getMyEvents(@RequestParam Long userId) {
+        List<Event> events = eventRepository.findByParticipantId(userId);
+
+        return events.stream()
+                .map(event -> EventDTO.builder()
+                        .id(event.getId())
+                        .title(event.getTitle())
+                        .description(event.getDescription())
+                        .location(event.getLocation())
+                        .budgetLimit(event.getBudgetLimit())
+                        .imagePath(event.getImagePath())
+                        .userId(event.getUser().getId())
+                        .participantIds(event.getParticipantIds())
+                        .build()
+                )
+                .toList();
     }
 
 
@@ -74,11 +88,11 @@ public class EventController {
     }
 
     // EXTRA: get days of event
-    @GetMapping("/{eventId}/days")
-    public List<Day> getEventDays(@PathVariable Long eventId) {
-        Event event = eventRepository.findById(eventId).orElseThrow();
-        return event.getDays();
-    }
+//    @GetMapping("/{eventId}/days")
+//    public List<Day> getEventDays(@PathVariable Long eventId) {
+//        Event event = eventRepository.findById(eventId).orElseThrow();
+//        return event.getDays();
+//    }
 
     // EXTRA: create day for event
     @PostMapping("/{eventId}/days")

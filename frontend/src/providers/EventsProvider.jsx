@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect, useRef } from "react";
 
 const EventContext = createContext();
 
-export function EventProvider({ children }) {
+export function EventsProvider({ children }) {
   const [events, setEvents] = useState([]);
   const didFetch = useRef(false); // to prevent double fetching in StrictMode
 
@@ -18,9 +18,7 @@ export function EventProvider({ children }) {
         if (!res.ok) throw new Error("Failed to fetch events");
         const data = await res.json();
         setEvents(data); // replace old state, don’t append
-      } catch (err) {
-        console.error("Error fetching events:", err);
-      }
+      } catch (err) {}
     };
     fetchEvents();
   }, []);

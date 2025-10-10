@@ -1,5 +1,6 @@
 package com.plan2hop.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,6 +35,7 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "master_user_id", nullable = false)
+    @JsonManagedReference
     private User user;
 
     @ElementCollection
@@ -46,6 +48,7 @@ public class Event {
 
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Day> days = new ArrayList<>();
 
     @Transient

@@ -5,13 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="637f4221-0b00-4d76-9867-437f3e6c3176" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/data_source_mapping.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/config/CorsConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/DayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/DayController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/dto/DayDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/dto/DayDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/dto/EventDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/dto/EventDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/EventPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/EventPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/providers/EventProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/providers/EventProvider.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/EventController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/model/Day.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/model/Day.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/model/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/model/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/repository/DayRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/repository/DayRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +75,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "configurable.group.com.intellij.jpa.jpb.model.tools",
+    "settings.editor.selected.configurable": "preferences.startup.tasks",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -137,10 +139,35 @@
       <updated>1758796207009</updated>
       <workItem from="1759914266307" duration="1069000" />
       <workItem from="1759915449470" duration="18476000" />
+      <workItem from="1760092763639" duration="10157000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/repository/EventRepository.java</url>
+          <line>16</line>
+          <properties class="com.plan2hop.backend.repository.EventRepository" method="findByParticipantId">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/repository/EventRepository.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

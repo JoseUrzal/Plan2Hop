@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import EventCard from "../components/EventCard";
-import { useEvents } from "../providers/EventProvider";
+import { useEvents } from "../providers/EventsProvider";
 import Header from "../components/Header";
 
 export default function DashboardPage() {

@@ -39,17 +39,22 @@ public class DayController {
         return dayRepository.save(day);
     }
 
-    // READ ALL
-    @GetMapping
-    public List<Day> getAllDays() {
-        return dayRepository.findAll();
+    // READ ALL FROM EVENT
+    @GetMapping("/by-event")
+    public List<DayDTO> getDaysByEventId(@RequestParam Long eventId) {
+        List<Day> days = dayRepository.findByEventId(eventId);
+
+        return days.stream()
+                .map(day -> DayDTO.builder()
+                        .id(day.getId())
+                        .date(day.getDate())
+                        .title(day.getTitle())
+                        .eventId(day.getEvent().getId())
+                        .build()
+                )
+                .toList();
     }
 
-    // READ ONE
-    @GetMapping("/{id}")
-    public Day getDayById(@PathVariable Long id) {
-        return dayRepository.findById(id).orElseThrow();
-    }
 
     // UPDATE
     @PutMapping("/{id}")
