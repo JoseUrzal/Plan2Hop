@@ -1,54 +1,58 @@
 import { useState } from "react";
+import { useEvents } from "../providers/EventsProvider";
+import Header from "../components/Header";
+import DayDescription from "../components/descriptions/DayDescription";
+import { useDays } from "../providers/DaysProvider";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import ActivitiesContainer from "../components/containers/ActivitiesContainer";
+import SaveButton from "../components/SaveButton";
 
 export default function DayPage() {
-  const [dayBlocks, setDayBlocks] = useState([]);
+  const [activities, setActivities] = useState([]);
+  const [currentDay, setCurrentDay] = useState(null);
+  const { days, fetchDayById, updateDay } = useDays();
 
-  const addBlock = () => {
-    const blockTitle = prompt(
-      "Enter title for the block:",
-      `Activity ${dayBlocks.length + 1}`
+  const { dayId } = useParams();
+
+  const { updateEventDays } = useEvents();
+  const handleSave = () => updateEventDays(currentEvent);
+
+  useEffect(() => {
+    const existingDay = days.find((d) => d.id === parseInt(dayId));
+    if (existingDay) {
+      setCurrentDay(existingDay);
+    } else {
+      // fetch only this day if it's not in state
+      fetchDayById(parseInt(dayId)).then((day) => setCurrentDay(day));
+    }
+  }, [days, dayId]);
+
+  if (!currentDay) return <div className="text-center mt-8">Day not found</div>;
+
+  const addActivity = () => {
+    const activityTitle = prompt(
+      "Enter title for the activity:",
+      `Activity ${activities.length + 1}`
     );
-    if (!blockTitle) return;
-    setDayBlocks([
-      ...dayBlocks,
-      { id: dayBlocks.length + 1, title: blockTitle },
+    if (!activityTitle) return;
+    setActivities([
+      ...activities,
+      { id: activities.length + 1, title: activityTitle },
     ]);
   };
 
-  const removeBlock = (id) => {
-    setDayBlocks(dayBlocks.filter((block) => block.id !== id));
+  const removeActivity = (id) => {
+    setActivities(activities.filter((activity) => activity.id !== id));
   };
 
   return (
-    <div className="space-y-6 px-4 md:px-0 py-8">
-      <h1 className="text-4xl font-bold text-gray-800 text-center mb-6">
-        Day Schedule
-      </h1>
+    <div className="space-y-8 px-4 md:px-0 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 text-gray-100 min-h-screen">
+      <Header />
+      <DayDescription />
+      <ActivitiesContainer dayId={currentDay.id} />
 
-      <div className="flex flex-col gap-4 max-w-3xl mx-auto">
-        {dayBlocks.map((block) => (
-          <div
-            key={block.id}
-            className="flex justify-between items-center bg-white shadow-md rounded-lg p-4 w-full"
-          >
-            <span className="font-medium">{block.title}</span>
-            <button
-              onClick={() => removeBlock(block.id)}
-              className="text-red-500 font-bold hover:text-red-700"
-            >
-              &times;
-            </button>
-          </div>
-        ))}
-
-        {/* "+" block to add new activity */}
-        <div
-          onClick={addBlock}
-          className="flex justify-center items-center bg-gray-100 border-2 border-dashed rounded-lg cursor-pointer h-16 hover:bg-gray-200 transition"
-        >
-          <span className="text-3xl font-bold text-gray-400">+</span>
-        </div>
-      </div>
+      <SaveButton onClick={() => updateDay({ ...currentDay, activities })} />
     </div>
   );
 }

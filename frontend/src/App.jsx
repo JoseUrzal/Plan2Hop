@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
 import EventPage from "./pages/EventPage.jsx";
 import DayPage from "./pages/DayPage.jsx";
+import ActivityPage from "./pages/ActivityPage.jsx";
 import BudgetPage from "./pages/BudgetPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import NavBar from "./components/NavBar.jsx";
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/event/:eventId" element={<EventPage />} />
         <Route path="/day/:dayId" element={<DayPage />} />
+        <Route path="/activity/:activityId" element={<ActivityPage />} />
         <Route path="/budget" element={<BudgetPage />} />
       </Routes>
     </Router>

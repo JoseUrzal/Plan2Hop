@@ -71,14 +71,27 @@ public class EventController {
 
     // UPDATE
     @PutMapping("/{id}")
-    public Event updateEvent(@RequestBody EventDTO updatedEventDTO) {
-        Event event = eventRepository.findById(updatedEventDTO.getId()).orElseThrow(() -> new RuntimeException("Event not found"));
+    public EventDTO updateEvent(@PathVariable Long id, @RequestBody EventDTO updatedEventDTO) {
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Event not found"));
         event.setTitle(updatedEventDTO.getTitle());
         event.setDescription(updatedEventDTO.getDescription());
         event.setLocation(updatedEventDTO.getLocation());
         event.setBudgetLimit(updatedEventDTO.getBudgetLimit());
         event.setImagePath(updatedEventDTO.getImagePath());
-        return eventRepository.save(event);
+        Event saved = eventRepository.save(event);
+
+        // Build and return a clean DTO instead of the full entity
+        return EventDTO.builder()
+                .id(saved.getId())
+                .title(saved.getTitle())
+                .description(saved.getDescription())
+                .location(saved.getLocation())
+                .budgetLimit(saved.getBudgetLimit())
+                .imagePath(saved.getImagePath())
+                .userId(saved.getUser() != null ? saved.getUser().getId() : null)
+                .participantIds(saved.getParticipantIds())
+                .build();
     }
 
     // DELETE

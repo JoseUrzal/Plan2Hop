@@ -1,5 +1,6 @@
 package com.plan2hop.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,7 +36,7 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "master_user_id", nullable = false)
-    @JsonManagedReference
+    @JsonBackReference
     private User user;
 
     @ElementCollection

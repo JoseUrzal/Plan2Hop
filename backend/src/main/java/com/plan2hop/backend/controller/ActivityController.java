@@ -1,6 +1,9 @@
 package com.plan2hop.backend.controller;
 
+import com.plan2hop.backend.dto.ActivityDTO;
+import com.plan2hop.backend.dto.DayDTO;
 import com.plan2hop.backend.model.Activity;
+import com.plan2hop.backend.model.Day;
 import com.plan2hop.backend.repository.ActivityRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +35,24 @@ public class ActivityController {
     @GetMapping("/{id}")
     public Activity getActivityById(@PathVariable Long id) {
         return activityRepository.findById(id).orElseThrow();
+    }
+
+    // READ ALL FROM DAY
+    @GetMapping("/by-day")
+    public List<ActivityDTO> getActivitiesByDayId(@RequestParam Long dayId) {
+        List<Activity> activities = activityRepository.findByDayId(dayId);
+
+        return activities.stream()
+                .map(activity -> ActivityDTO.builder()
+                        .id(activity.getId())
+                        .title(activity.getTitle())
+                        .cost(activity.getCost())
+                        .description(activity.getDescription())
+                        .location(activity.getLocation())
+                        .dayId(activity.getDay().getId())
+                        .build()
+                )
+                .toList();
     }
 
     // UPDATE

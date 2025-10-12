@@ -55,6 +55,18 @@ public class DayController {
                 .toList();
     }
 
+    @GetMapping("/by-id/{id}")
+    public DayDTO getDayById(@PathVariable Long id) {
+        Day day = dayRepository.findById(id).orElseThrow(() -> new RuntimeException("Day not found"));
+
+        return DayDTO.builder()
+                        .id(day.getId())
+                        .date(day.getDate())
+                        .title(day.getTitle())
+                        .eventId(day.getEvent().getId())
+                        .build();
+    }
+
 
     // UPDATE
     @PutMapping("/{id}")
@@ -70,18 +82,12 @@ public class DayController {
         dayRepository.deleteById(id);
     }
 
-    // EXTRA: get activities of day
-    @GetMapping("/{dayId}/activities")
-    public List<Activity> getDayActivities(@PathVariable Long dayId) {
-        Day day = dayRepository.findById(dayId).orElseThrow();
-        return day.getActivities();
-    }
 
-    // EXTRA: create activity for day
-    @PostMapping("/{dayId}/activities")
-    public Activity createActivityForDay(@PathVariable Long dayId, @RequestBody Activity activity) {
-        Day day = dayRepository.findById(dayId).orElseThrow();
-        activity.setDay(day);
-        return activityRepository.save(activity);
-    }
+//    EXTRA: create activity for day
+//    @PostMapping("/{dayId}/activities")
+//    public Activity createActivityForDay(@PathVariable Long dayId, @RequestBody Activity activity) {
+//        Day day = dayRepository.findById(dayId).orElseThrow();
+//        activity.setDay(day);
+//        return activityRepository.save(activity);
+//    }
 }

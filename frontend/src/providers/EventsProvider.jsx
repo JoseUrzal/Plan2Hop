@@ -26,43 +26,138 @@ export function EventsProvider({ children }) {
   // --- --- UPDATE EVENT --- ---
   const updateEvent = async (event) => {
     try {
-      console.log("updating event: " + event.id);
-      console.log(event);
+      console.log("updating event:", event);
+
+      // prepare DTO for backend
+      const dto = {
+        id: event.id,
+        title: event.title,
+        description: event.description,
+        location: event.location,
+        budgetLimit: event.budgetLimit,
+        imagePath: event.imagePath,
+        userId: event.user?.id || event.userId, // just send ID, not full object
+        participantIds: event.participantIds || [],
+      };
+
       const res = await fetch(`http://localhost:8080/api/events/${event.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(event),
+        body: JSON.stringify(dto),
       });
       if (!res.ok) throw new Error("Failed to update event");
+
       const updated = await res.json();
 
       setEvents((prev) => prev.map((e) => (e.id === event.id ? updated : e)));
 
-      console.log("event days: " + event.days[0].id);
+      // post days separately
       if (event.days && event.days.length > 0) {
+        console.log(
+          "Posting " + event.days.length + "days for event:",
+          event.id
+        );
         for (const day of event.days) {
-          console.log(
-            "trying to post: " +
-              "dayId: " +
-              day.id +
-              " , dayTitle: " +
-              day.title +
-              " , dayDate: " +
-              day.date +
-              " , eventId: " +
-              day.eventId
-          );
+          const cleanDay = {
+            id: day.id,
+            title: day.title,
+            date: day.date,
+            eventId: event.id, // don't send full event
+          };
           await fetch(`http://localhost:8080/api/days`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(day),
+            body: JSON.stringify(cleanDay),
           });
+          console.log("Posted day:", cleanDay);
         }
       }
-
-      alert("Event and days saved successfully!");
+      alert("Event saved successfully!");
+      await updateEventDays(event);
     } catch (err) {
-      console.error(err);
+      console.error("Error while updating event:", err);
+    }
+  };
+
+  // --- UPDATE DAYS OF EVENT ---
+  const updateEventDays = async (event) => {
+    try {
+      console.log("🔄 Syncing days for event:", event.id);
+
+      // 1️⃣ Fetch current days from DB
+      const res = await fetch(
+        `http://localhost:8080/api/days/by-event?eventId=${event.id}`
+      );
+      if (!res.ok) throw new Error("Failed to fetch event days");
+      const existingDays = await res.json();
+
+      console.log("Existing days from DB:", existingDays);
+      console.log("Frontend days:", event.days);
+
+      // 2️⃣ Determine which to add, update, or delete
+      const daysToAdd = event.days.filter(
+        (d) => !existingDays.some((db) => db.id === d.id)
+      );
+
+      const daysToDelete = existingDays.filter(
+        (db) => !event.days.some((d) => d.id === db.id)
+      );
+
+      // Optional: only if you want to detect title/date edits
+      const daysToUpdate = event.days.filter((d) =>
+        existingDays.some(
+          (db) => db.id === d.id && (db.title !== d.title || db.date !== d.date)
+        )
+      );
+
+      console.log("➕ To add:", daysToAdd);
+      console.log("🗑️ To delete:", daysToDelete);
+      console.log("✏️ To update:", daysToUpdate);
+
+      // 3️⃣ Perform the operations
+
+      // --- ADD ---
+      for (const day of daysToAdd) {
+        const cleanDay = {
+          title: day.title,
+          date: day.date,
+          eventId: event.id,
+        };
+        await fetch(`http://localhost:8080/api/days`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(cleanDay),
+        });
+        console.log("✅ Added day:", cleanDay);
+      }
+
+      // --- UPDATE ---
+      for (const day of daysToUpdate) {
+        const cleanDay = {
+          id: day.id,
+          title: day.title,
+          date: day.date,
+          eventId: event.id,
+        };
+        await fetch(`http://localhost:8080/api/days/${day.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(cleanDay),
+        });
+        console.log("✏️ Updated day:", cleanDay);
+      }
+
+      // --- DELETE ---
+      for (const day of daysToDelete) {
+        await fetch(`http://localhost:8080/api/days/${day.id}`, {
+          method: "DELETE",
+        });
+        console.log("🗑️ Deleted day:", day);
+      }
+
+      alert("✅ Days synced successfully!");
+    } catch (err) {
+      console.error("❌ Error while updating event days:", err);
     }
   };
 
@@ -96,7 +191,15 @@ export function EventsProvider({ children }) {
   };
 
   return (
-    <EventContext.Provider value={{ events, updateEvent, createEvent }}>
+    <EventContext.Provider
+      value={{
+        events,
+        createEvent,
+        updateEvent,
+        updateEventDays,
+        //updateDayActivities,
+      }}
+    >
       {children}
     </EventContext.Provider>
   );
