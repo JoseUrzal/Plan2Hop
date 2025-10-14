@@ -38,7 +38,7 @@ export default function DayDescription() {
         <div className="flex items-center">
           <input
             type="text"
-            value={date}
+            value={`🗓️ ${date}`}
             onChange={(e) => setDate(e.target.value)}
             className="text-gray-500 text-center text-xl w-auto bg-transparent border-none focus:outline-none focus:ring-0"
             placeholder="- date -"

@@ -1,6 +1,6 @@
 export default function Header() {
   return (
-    <div className="pt-8 pb-6 flex flex-col items-center  from-gray-900 via-gray-800 to-gray-700 text-gray-100">
+    <div className="pt-8 pb-2 flex flex-col items-center  from-gray-900 via-gray-800 to-gray-700 text-gray-100">
       <h1 className="flex items-center text-5xl font-semibold text-indigo-200 mb-6">
         {/* Small logo on the left */}
         <img

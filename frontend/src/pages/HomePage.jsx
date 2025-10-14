@@ -2,9 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import EventCard from "../components/cards/EventCard";
 import { useEvents } from "../providers/EventsProvider";
 import Header from "../components/Header";
+import EventsContainer from "../components/containers/EventsContainer";
+import SaveButton from "../components/SaveButton";
 
-export default function DashboardPage() {
-  const { events, createEvent } = useEvents();
+export default function HomePage() {
+  const { events, createEvent, updateEvents } = useEvents();
   const navigate = useNavigate();
 
   const handleAddEvent = async () => {
@@ -13,23 +15,10 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="p-8 flex flex-col items-center bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 text-gray-100 min-h-screen">
+    <div className="space-y-8 px-4 md:px-0 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 text-gray-100 min-h-screen">
       <Header />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
-        {events.map((event) => (
-          <Link key={event.id} to={`/event/${event.id}`}>
-            <EventCard event={event} />
-          </Link>
-        ))}
-
-        {/* "+" card */}
-        <div
-          onClick={handleAddEvent}
-          className="flex items-center justify-center h-48 w-full bg-gray-100 border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-200 transition shadow-md md:w-auto"
-        >
-          <span className="text-4xl font-bold text-gray-400">+</span>
-        </div>
-      </div>
+      <EventsContainer />
+      <SaveButton onClick={() => updateEvent({ ...currentEvent, days })} />
     </div>
   );
 }

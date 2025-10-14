@@ -6,26 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="637f4221-0b00-4d76-9867-437f3e6c3176" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/config/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/ActivityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/ActivityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/DayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/DayController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/EventController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/model/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/model/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/repository/ActivityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/repository/ActivityRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/BudgetBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/BudgetBar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/DayCard.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/DaysContainer.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/EventCard.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/EventDescription.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/DayPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/DayPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/EventPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/EventPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/HomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/HomePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/providers/ActivitiesProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/providers/ActivitiesProvider.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/providers/DaysProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/providers/DaysProvider.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/providers/EventsProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/providers/EventsProvider.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +133,7 @@
       <workItem from="1759915449470" duration="18476000" />
       <workItem from="1760092763639" duration="14844000" />
       <workItem from="1760223859958" duration="20000" />
-      <workItem from="1760223896699" duration="13063000" />
+      <workItem from="1760223896699" duration="18512000" />
     </task>
     <servers />
   </component>

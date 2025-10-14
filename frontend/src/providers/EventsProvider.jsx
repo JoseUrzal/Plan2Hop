@@ -6,28 +6,27 @@ export function EventsProvider({ children }) {
   const [events, setEvents] = useState([]);
   const didFetch = useRef(false); // to prevent double fetching in StrictMode
 
+  const fetchEvents = async () => {
+    try {
+      const res = await fetch(
+        "http://localhost:8080/api/events/my-events?userId=1" // hardcoded user ID for now
+      );
+      if (!res.ok) throw new Error("Failed to fetch events");
+      const data = await res.json();
+      setEvents(data); // replace old state, don’t append
+    } catch (err) {}
+  };
+
   // --- --- LOAD EVENTS --- ---
   useEffect(() => {
     if (didFetch.current) return; // skip second run
     didFetch.current = true;
-    const fetchEvents = async () => {
-      try {
-        const res = await fetch(
-          "http://localhost:8080/api/events/my-events?userId=1" // hardcoded user ID for now
-        );
-        if (!res.ok) throw new Error("Failed to fetch events");
-        const data = await res.json();
-        setEvents(data); // replace old state, don’t append
-      } catch (err) {}
-    };
     fetchEvents();
   }, []);
 
   // --- --- UPDATE EVENT --- ---
   const updateEvent = async (event) => {
     try {
-      console.log("updating event:", event);
-
       // prepare DTO for backend
       const dto = {
         id: event.id,
@@ -197,7 +196,7 @@ export function EventsProvider({ children }) {
         createEvent,
         updateEvent,
         updateEventDays,
-        //updateDayActivities,
+        fetchEvents,
       }}
     >
       {children}

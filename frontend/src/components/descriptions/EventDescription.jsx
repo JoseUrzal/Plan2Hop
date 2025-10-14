@@ -36,7 +36,7 @@ export default function EventDescription() {
           />
         </div>
         <div className="flex items-center">
-          <span className="text-base">📍</span>
+          <span className="text-base">📌</span>
           <input
             type="text"
             value={location}
@@ -45,6 +45,7 @@ export default function EventDescription() {
             className="text-gray-500 text-center text-xl w-auto bg-transparent border-none focus:outline-none focus:ring-0"
             placeholder="- location -"
           />
+          <span className="text-base">🌍</span>
         </div>
       </div>
     </div>

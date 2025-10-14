@@ -17,19 +17,48 @@ export default function ActivitiesContainer({ dayId }) {
   };
 
   const handleAddActivity = () => {
-    const title = prompt("Enter activity title: ");
-    if (!title) return alert("Title is required!");
-    const location = prompt("Enter activity location: ");
-    const cost = prompt("Enter activity cost: ");
+    const title = prompt("Enter activity title:");
+    if (!title?.trim()) {
+      alert("Title is required!");
+      return;
+    }
+
+    const location = prompt("Enter activity location:") || "";
+
+    const description = prompt("Enter activity description:") || "";
+
+    let costInput;
+    while (true) {
+      const input = prompt("Enter activity cost (numbers only):");
+      if (input === null) return; // user cancelled
+      costInput = input;
+      if (costInput.trim() === "") {
+        alert("Cost is required!");
+        continue;
+      }
+
+      // Validate cost
+      const cost = Number(costInput);
+
+      if (!Number.isFinite(cost) || !Number.isInteger(cost) || cost < 0) {
+        alert(
+          "Please enter a valid whole number for cost (no decimals or letters)."
+        );
+        continue;
+      }
+      costInput = input;
+      break;
+    }
 
     const newActivity = {
       id: Date.now(), // temporary id until saved in DB
-      title,
-      description: "",
-      cost: "",
-      dayId,
+      title: title.trim(),
+      location: location.trim(),
+      cost: Number(costInput), // store as number (Long-compatible)
+      description: description.trim(),
+      dayId: dayId,
     };
-    // Update local state immutably
+
     addActivity(newActivity);
   };
 
