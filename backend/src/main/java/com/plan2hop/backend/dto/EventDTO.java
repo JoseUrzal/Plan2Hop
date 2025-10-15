@@ -1,13 +1,11 @@
 package com.plan2hop.backend.dto;
 
-import com.plan2hop.backend.model.User;
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
-import java.util.Set;
 
 @Data                   // generates getters, setters, toString, equals, hashCode
 @NoArgsConstructor      // generates a no-args constructor

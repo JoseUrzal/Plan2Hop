@@ -5,15 +5,18 @@ import App from "./App.jsx";
 import { EventsProvider } from "./providers/EventsProvider.jsx";
 import { DaysProvider } from "./providers/DaysProvider.jsx";
 import { ActivitiesProvider } from "./providers/ActivitiesProvider.jsx";
+import { UserProvider } from "./providers/UserProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <EventsProvider>
-      <DaysProvider>
-        <ActivitiesProvider>
-          <App />
-        </ActivitiesProvider>
-      </DaysProvider>
-    </EventsProvider>
+    <UserProvider>
+      <EventsProvider>
+        <DaysProvider>
+          <ActivitiesProvider>
+            <App />
+          </ActivitiesProvider>
+        </DaysProvider>
+      </EventsProvider>
+    </UserProvider>
   </StrictMode>
 );

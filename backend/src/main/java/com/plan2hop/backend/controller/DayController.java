@@ -1,30 +1,34 @@
 package com.plan2hop.backend.controller;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.plan2hop.backend.dto.DayDTO;
 import com.plan2hop.backend.model.Day;
-import com.plan2hop.backend.model.Activity;
 import com.plan2hop.backend.model.Event;
 import com.plan2hop.backend.repository.DayRepository;
-import com.plan2hop.backend.repository.ActivityRepository;
 import com.plan2hop.backend.repository.EventRepository;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/days")
 public class DayController {
 
     private final DayRepository dayRepository;
-    private final ActivityRepository activityRepository;
     private final EventRepository eventRepository;
 
-    public DayController(DayRepository dayRepository, ActivityRepository activityRepository, EventRepository eventRepository) {
+    public DayController(DayRepository dayRepository, EventRepository eventRepository) {
         this.dayRepository = dayRepository;
-        this.activityRepository = activityRepository;
         this.eventRepository = eventRepository;
     }
-
     // CREATE
     @PostMapping
     public Day createDay(@RequestBody DayDTO dayDTO) {

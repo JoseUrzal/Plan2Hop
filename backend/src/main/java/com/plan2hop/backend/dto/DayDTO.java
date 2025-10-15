@@ -1,14 +1,13 @@
 package com.plan2hop.backend.dto;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
 
 @Data                   // generates getters, setters, toString, equals, hashCode
 @NoArgsConstructor      // generates a no-args constructor

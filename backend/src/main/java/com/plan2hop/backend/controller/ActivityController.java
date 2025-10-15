@@ -1,13 +1,20 @@
 package com.plan2hop.backend.controller;
 
-import com.plan2hop.backend.dto.ActivityDTO;
-import com.plan2hop.backend.dto.DayDTO;
-import com.plan2hop.backend.model.Activity;
-import com.plan2hop.backend.model.Day;
-import com.plan2hop.backend.repository.ActivityRepository;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.plan2hop.backend.dto.ActivityDTO;
+import com.plan2hop.backend.model.Activity;
+import com.plan2hop.backend.repository.ActivityRepository;
 
 @RestController
 @RequestMapping("/api/activities")

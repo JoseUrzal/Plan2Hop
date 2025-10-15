@@ -6,13 +6,25 @@ export default function NavBar() {
       {/* Logo / App Name as link */}
       <Link
         to="/"
-        className="text-2xl font-bold text-indigo-200 hover:text-orange-400"
+        className="text-2xl font-bold text-indigo-200 hover:text-orange-400 transition-all duration-200"
       >
         My Events
       </Link>
 
-      {/* Login Link */}
-      <div>
+      {/* Navigation links */}
+      <div className="flex items-center space-x-4">
+        <Link
+          to="/about"
+          className="text-indigo-200 font-medium px-4 py-1 rounded-lg hover:text-orange-400 transition-all duration-200"
+        >
+          About
+        </Link>
+        <Link
+          to="/contact"
+          className="text-indigo-200 font-medium px-4 py-1 rounded-lg hover:text-orange-400 transition-all duration-200"
+        >
+          Contact
+        </Link>
         <Link
           to="/login"
           className="text-indigo-200 font-medium px-4 py-1 rounded-lg hover:text-orange-400 transition-all duration-200"

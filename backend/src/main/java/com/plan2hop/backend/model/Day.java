@@ -31,5 +31,5 @@ public class Day {
     private Event event;
 
     @OneToMany(mappedBy = "day", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Activity> activities = new ArrayList<>();
+    private  List<Activity> activities = new ArrayList<>();
 }

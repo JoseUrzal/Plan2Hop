@@ -1,7 +1,7 @@
 export default function Header() {
   return (
     <div className="pt-8 pb-2 flex flex-col items-center  from-gray-900 via-gray-800 to-gray-700 text-gray-100">
-      <h1 className="flex items-center text-5xl font-semibold text-indigo-200 mb-6">
+      <h1 className="flex items-center text-5xl font-semibold text-indigo-100 mb-6">
         {/* Small logo on the left */}
         <img
           src="/backgrounds/myIcon.png"
@@ -12,7 +12,7 @@ export default function Header() {
       </h1>
 
       {/* Accent line below */}
-      <span className="block h-1 w-24 bg-orange-500 rounded-full mx-auto"></span>
+      <span className="block h-1 w-24 bg-orange-700 rounded-full mx-auto"></span>
     </div>
   );
 }
