@@ -56,7 +56,7 @@ export default function EventDescription({ event, onUpdate }) {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            onBlur={handleBlur}
+            //onBlur={handleBlur}
             className="text-indigo-200 font-bold text-3xl text-center w-full bg-transparent border-none focus:outline-none focus:ring-0"
           />
         </div>
@@ -68,7 +68,7 @@ export default function EventDescription({ event, onUpdate }) {
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            onBlur={handleBlur}
+            //onBlur={handleBlur}
             size={Math.max(location.length, 1)}
             className="text-gray-500 text-center text-xl w-auto bg-transparent border-none focus:outline-none focus:ring-0"
             placeholder="- location -"
@@ -84,7 +84,7 @@ export default function EventDescription({ event, onUpdate }) {
               type="number"
               value={budget}
               onChange={(e) => setBudget(e.target.value)}
-              onBlur={handleBlur}
+              //onBlur={handleBlur}
               onKeyDown={handleKeyDown}
               className="w-24 bg-transparent text-center focus:outline-none"
             />

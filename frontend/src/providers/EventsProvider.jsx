@@ -52,10 +52,6 @@ export function EventsProvider({ children }) {
 
       // post days separately
       if (event.days && event.days.length > 0) {
-        console.log(
-          "Posting " + event.days.length + "days for event:",
-          event.id
-        );
         for (const day of event.days) {
           const cleanDay = {
             id: day.id,
@@ -68,14 +64,11 @@ export function EventsProvider({ children }) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(cleanDay),
           });
-          console.log("Posted day:", cleanDay);
         }
       }
       alert("Event saved successfully!");
       await updateEventDays(event);
-    } catch (err) {
-      console.error("Error while updating event:", err);
-    }
+    } catch (err) {}
   };
 
   // --- UPDATE DAYS OF EVENT ---
@@ -89,9 +82,6 @@ export function EventsProvider({ children }) {
       );
       if (!res.ok) throw new Error("Failed to fetch event days");
       const existingDays = await res.json();
-
-      console.log("Existing days from DB:", existingDays);
-      console.log("Frontend days:", event.days);
 
       // 2️⃣ Determine which to add, update, or delete
       const daysToAdd = event.days.filter(
@@ -109,12 +99,6 @@ export function EventsProvider({ children }) {
         )
       );
 
-      console.log("➕ To add:", daysToAdd);
-      console.log("🗑️ To delete:", daysToDelete);
-      console.log("✏️ To update:", daysToUpdate);
-
-      // 3️⃣ Perform the operations
-
       // --- ADD ---
       for (const day of daysToAdd) {
         const cleanDay = {
@@ -127,7 +111,6 @@ export function EventsProvider({ children }) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(cleanDay),
         });
-        console.log("✅ Added day:", cleanDay);
       }
 
       // --- UPDATE ---
@@ -143,7 +126,6 @@ export function EventsProvider({ children }) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(cleanDay),
         });
-        console.log("✏️ Updated day:", cleanDay);
       }
 
       // --- DELETE ---
@@ -151,13 +133,8 @@ export function EventsProvider({ children }) {
         await fetch(`http://localhost:8080/api/days/${day.id}`, {
           method: "DELETE",
         });
-        console.log("🗑️ Deleted day:", day);
       }
-
-      alert("✅ Days synced successfully!");
-    } catch (err) {
-      console.error("❌ Error while updating event days:", err);
-    }
+    } catch (err) {}
   };
 
   // --- --- CREATE EVENT --- ---
@@ -189,6 +166,16 @@ export function EventsProvider({ children }) {
     }
   };
 
+  const deleteEvent = async (eventToDelete) => {
+    try {
+      await fetch(`http://localhost:8080/api/events/${eventToDelete.id}`, {
+        method: "DELETE",
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <EventContext.Provider
       value={{
@@ -197,6 +184,7 @@ export function EventsProvider({ children }) {
         updateEvent,
         updateEventDays,
         fetchEvents,
+        deleteEvent,
       }}
     >
       {children}

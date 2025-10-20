@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEvents } from "../../providers/EventsProvider";
 import EventCard from "../cards/EventCard";
 
 export default function EventsContainer() {
   const navigate = useNavigate();
+  const { eventId } = useParams();
 
   const { events, fetchEvents, addEvent, updateEvent, deleteEvent } =
     useEvents();
@@ -59,9 +60,13 @@ export default function EventsContainer() {
     addEvent(newEvent);
   };
 
-  const handleDeleteEvent = (id) => {
+  const handleDeleteEvent = () => {
     if (window.confirm("Are you sure you want to delete this event?")) {
-      deleteEvent(id);
+      for (const event of events) {
+        if ((event.id = eventId)) {
+          deleteEvent(id);
+        }
+      }
     }
   };
 

@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 
-export default function BudgetCard({ event, spent = 0, onUpdate }) {
-  const [budget, setBudget] = useState(event?.budgetLimit || 0);
+export default function BudgetCard({ budget, spent }) {
+  const [currentBudget, setBudget] = useState(budget);
   const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
-    setBudget(event?.budgetLimit || 0);
-  }, [event]);
+  // useEffect(() => {
+  //   setBudget(event?.budgetLimit || 0);
+  // }, [event]);
 
   const handleSave = async () => {
-    if (!event || budget === event.budgetLimit) return;
+    if (!event || currentBudget === event.budgetLimit) return;
     setSaving(true);
-    await onUpdate({ ...event, budgetLimit: Number(budget) });
+    await onUpdate({ ...event, budgetLimit: Number(currentBudget) });
     setSaving(false);
   };
 
@@ -19,8 +19,8 @@ export default function BudgetCard({ event, spent = 0, onUpdate }) {
     if (e.key === "Enter") e.target.blur();
   };
 
-  const percentage = budget > 0 ? (spent / budget) * 100 : 0;
-  const isOverBudget = spent > budget;
+  const percentage = currentBudget > 0 ? (spent / currentBudget) * 100 : 0;
+  const isOverBudget = spent > currentBudget;
   const displayPercentage = Math.min(percentage, 100);
 
   return (
@@ -28,7 +28,7 @@ export default function BudgetCard({ event, spent = 0, onUpdate }) {
       {/* ⚠️ Warning */}
       {isOverBudget && (
         <div className="text-orange-400 font-semibold animate-pulse">
-          ⚠️ Over budget by €{(spent - budget).toFixed(2)}
+          ⚠️ Over budget by €{(spent - currentBudget).toFixed(2)}
         </div>
       )}
       <div className="relative w-full md:w-4/5 lg:w-3/5 h-4 rounded-xl shadow-lg overflow-hidden transition-all duration-700 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700">
@@ -50,14 +50,17 @@ export default function BudgetCard({ event, spent = 0, onUpdate }) {
         <div
           className="absolute top-0 bottom-0 w-0.5 bg-orange-300"
           style={{
-            left: `${Math.min(100, budget > 0 ? (budget / budget) * 100 : 0)}%`,
+            left: `${Math.min(
+              100,
+              currentBudget > 0 ? (currentBudget / currentBudget) * 100 : 0
+            )}%`,
           }}
         ></div>
 
         {/* Text overlay */}
         <div className="absolute inset-0 flex justify-end items-center px-4 text-xs font-semibold text-indigo-100 mix-blend-difference">
           <span>
-            €{spent.toFixed(2)} / €{budget}
+            €{spent} / €{currentBudget}
           </span>
         </div>
       </div>

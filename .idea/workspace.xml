@@ -6,30 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="637f4221-0b00-4d76-9867-437f3e6c3176" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a77b636b-6dc5-4ad6-b1c0-afcc2a47c059.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a77b636b-6dc5-4ad6-b1c0-afcc2a47c059.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/data_source_mapping.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/data_source_mapping.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/config/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/ActivityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/ActivityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/DayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/DayController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/dto/DayDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/dto/DayDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/dto/EventDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/dto/EventDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/model/Day.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/model/Day.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/repository/ActivityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/repository/ActivityRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/repository/DayRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/repository/DayRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/SaveButton.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/cards/BudgetCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/cards/BudgetCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/descriptions/DayDescription.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/descriptions/DayDescription.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/descriptions/EventDescription.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/descriptions/EventDescription.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/DayPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/DayPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/EventPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/EventPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/HomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/HomePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/LoginPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/providers/ActivitiesProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/providers/ActivitiesProvider.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/providers/DaysProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/providers/DaysProvider.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,6 +138,8 @@
       <workItem from="1760223859958" duration="20000" />
       <workItem from="1760223896699" duration="20444000" />
       <workItem from="1760481341061" duration="7546000" />
+      <workItem from="1760690300531" duration="2983000" />
+      <workItem from="1760949554531" duration="5136000" />
     </task>
     <servers />
   </component>
@@ -181,16 +162,6 @@
           <url>file://$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/repository/EventRepository.java</url>
           <line>18</line>
           <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/DayController.java</url>
-          <line>71</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/backend/src/main/java/com/plan2hop/backend/controller/DayController.java</url>
-          <line>65</line>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
